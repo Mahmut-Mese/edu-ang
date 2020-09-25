@@ -1,0 +1,80 @@
+<form
+class="uk-child-width-1-1 uk-grid-small"
+uk-grid
+ 
+>
+<div>
+  
+ 
+  <div class="uk-form-group">
+    <label class="uk-form-label"> Title</label>
+
+    <div class="uk-position-relative w-100">
+      <span class="uk-form-icon">
+        <i class="icon-feather-user"></i>
+      </span>
+      <input
+        class="uk-input"
+        type="text"
+        name="title"
+        [(ngModel)]="category.title"
+        placeholder="title"
+      />
+    </div>
+  </div>
+</div>
+
+ 
+ 
+   <div class="uk-form-group">
+    <label class="uk-form-label"> Description</label>
+
+    <div class="uk-position-relative  ">
+      <span class="uk-form-icon">
+        <i class="icon-feather-lock"></i>
+      </span>
+      <textarea  class="uk-input"
+      type="text"
+      name="description"
+      [(ngModel)]="category.description"
+      placeholder="description"></textarea>
+       
+    
+    </div>
+  </div>
+ 
+<div class="uk-width-1-2@s">
+  <div class="uk-form-group">
+    <label class="uk-form-label"> upload image</label>
+
+    <div class="uk-position-relative w-100">
+      <span class="uk-form-icon">
+        <i class="icon-feather-lock"></i>
+      </span>
+      <input
+        class="uk-input"
+        type="file"  
+        #file
+        accept="image/*"
+        name="file"
+        (change)="preview(file.files)"/>
+    </div>
+    <img *ngIf="category.category_picture" [src]="imgURL" alt="ff" />
+  </div>
+</div>
+
+<div>
+  <div class="mt-4 uk-flex-middle uk-grid-small" uk-grid>
+    <div class="uk-width-auto@s">
+      <input
+        type="submit"
+        class="btn btn-default"
+        value="Add"
+        (click)="post()"
+      />
+    </div>
+  </div>
+  <div *ngIf="uploading" ><p>Updating...</p></div>
+
+</div>
+</form>

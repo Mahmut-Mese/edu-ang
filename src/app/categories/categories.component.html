@@ -1,0 +1,38 @@
+<div class="page-content">
+
+    <div class="page-content-inner">
+
+        <h2 class="mb-3"> Topic </h2>
+
+        <div class="section-header">
+            <div class="section-header-left">
+                <h4> Choose a topic</h4>
+            </div>
+            <div class="section-header-right">
+                <a href="#" class="see-all"> See all</a>
+            </div>
+        </div>
+
+        <div class="uk-child-width-1-3@s uk-child-width-1-4@m" uk-grid>
+           
+            <div *ngFor="let category of categories">
+                <a   routerLink="/categories/{{ category._id }}" class="skill-card">
+                    <img class="icon-brand-js-square skill-card-icon"   [src]="category.image"/>
+                    <div>
+                        <h2 class="skill-card-title"> {{category.title}}</h2>
+                        <p class="skill-card-subtitle"> {{category.description}}
+                            
+                        </p>
+                    </div>
+                </a>
+            </div>
+         
+            
+        </div>
+
+     
+
+    </div>
+
+
+</div>

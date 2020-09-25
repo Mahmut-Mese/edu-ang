@@ -1,0 +1,313 @@
+<div class="page-content profile">
+  <div class="page-content-inner">
+    <div uk-grid>
+      <div class="uk-width-medium@m">
+        <div
+          class="profile-cards"
+          uk-sticky="offset: 90; bottom: true; media: @m;top:2"
+        >
+       <div class="profile-photo-edit">
+          <div class="user-profile-photo">
+            <!--                         <img src="assets/img/avatars/home-profile.jpg" alt="">
+ -->
+            <img *ngIf="user" [src]="imgURL || user.picture || defaultImg" alt="ff" />
+     
+          </div>
+          <form  >
+            <div class="uk-margin">
+              <div uk-form-custom>
+                <input type="file"  
+                #file
+                accept="image/*"
+                name="file"
+                (change)="preview(file.files)"/>
+             
+                <button type="button" class=" btn-image  rounded-circle  ">
+                  <span class="btn-inner--icon">
+                    <i class="icon-material-outline-add-a-photo"></i>
+                  </span>
+                </button>
+              </div>
+            </div>
+          
+              <button class="uk-uk-button uk-button-default" *ngIf="submitVisible"  (click)="uploadPicture()">Save</button>
+              <div *ngIf="uploading" ><p>Updating...</p></div>
+            
+          </form>
+        </div> 
+          <h4 *ngIf="user">{{ user.name }}</h4>
+       
+         
+        
+          <div class="social-icons">
+            <a href="#"> <i class="icon-brand-facebook-f"></i> </a>
+            <a href="#"><i class="icon-brand-twitter"></i></a>
+            <a href="#"> <i class="icon-brand-linkedin"></i></a>
+          </div>
+         
+      <!--     <form>
+            <div class="form-group">
+              <label>Upload Image</label>
+              <input
+                type="file"
+                class="form-control-file"
+                accept="image/*"
+                name="file"
+                (change)="fileChange($event)"
+              />
+            </div>
+            <button
+              type="button"
+              class="btn btn-success"
+              (click)="uploadPicture()"
+            >
+              Post
+            </button>
+          </form> -->
+
+          <ul
+            class="uk-list uk-list-divider text-center mb-0 mt-3 uk-text-small"
+            style="margin: -15px;"
+          >
+            <li>
+              <a href="#" class="uk-link-reset"> {{user.email}} </a>
+            </li>
+           
+          </ul>
+
+          <div class="profile-cards-footer mt-3">
+            <a routerLink="profile">   Edit Account </a>
+          </div>
+        </div>
+      </div>
+      <div class="uk-width-expand@m">
+        <nav class="responsive-tab style-4">
+          <ul uk-switcher="connect: #profile-edit-tab ; ">
+            <li class="uk-active"><a href="#"> Courses </a></li>
+            <li><a href="#"> Add Product </a></li>
+            <li><a href="#"> Add Category </a></li>
+            <li><a href="#"> Address </a></li>
+            <li><a href="#"> Settings </a></li>
+          </ul>
+        </nav>
+        <ul id="profile-edit-tab" class="uk-switcher mt-4">
+          <li>
+          <app-my-courses></app-my-courses>
+          </li>
+          <li>
+       <app-post-course></app-post-course>
+          </li>
+          <li>
+            <app-post-category></app-post-category>
+               </li>
+          <li>
+            <form
+              class="uk-child-width-1-1 uk-grid-small"
+              uk-grid
+              *ngIf="currentAddress"
+            >
+              <div>
+                <div class="uk-form-group">
+                  <label class="uk-form-label"> Address</label>
+
+                  <div class="uk-position-relative w-100">
+                    <span class="uk-form-icon">
+                      <i class="icon-feather-user"></i>
+                    </span>
+                    <input
+                      class="uk-input"
+                      type="text"
+                      name="addr1"
+                      [(ngModel)]="currentAddress.addr1"
+                      placeholder="Address"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <div class="uk-form-group">
+                  <label class="uk-form-label"> Address</label>
+
+                  <div class="uk-position-relative w-100">
+                    <span class="uk-form-icon">
+                      <i class="icon-feather-mail"></i>
+                    </span>
+                    <input
+                      class="uk-input"
+                      type="text"
+                      name="addr2"
+                      [(ngModel)]="currentAddress.addr2"
+                      placeholder="Address"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div class="uk-width-1-2@s">
+                <div class="uk-form-group">
+                  <label class="uk-form-label"> City</label>
+
+                  <div class="uk-position-relative w-100">
+                    <span class="uk-form-icon">
+                      <i class="icon-feather-lock"></i>
+                    </span>
+                    <input
+                      class="uk-input"
+                      type="text"
+                      name="city"
+                      [(ngModel)]="currentAddress.city"
+                      placeholder="city"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="uk-width-1-2@s">
+                <div class="uk-form-group">
+                  <label class="uk-form-label"> State</label>
+
+                  <div class="uk-position-relative w-100">
+                    <span class="uk-form-icon">
+                      <i class="icon-feather-lock"></i>
+                    </span>
+                    <input
+                      class="uk-input"
+                      type="text"
+                      name="state"
+                      [(ngModel)]="currentAddress.state"
+                      placeholder="state"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="uk-width-1-2@s">
+                <div class="uk-form-group">
+                  <label class="uk-form-label"> Country</label>
+
+                  <div class="uk-position-relative w-100">
+                    <span class="uk-form-icon">
+                      <i class="icon-feather-lock"></i>
+                    </span>
+                    <input
+                      class="uk-input"
+                      type="text"
+                      name="country"
+                      [(ngModel)]="currentAddress.country"
+                      placeholder="country"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <div class="mt-4 uk-flex-middle uk-grid-small" uk-grid>
+                  <div class="uk-width-auto@s">
+                    <input
+                      type="submit"
+                      class="btn btn-default"
+                      value="Update"
+                      (click)="updateAddress()"
+                    />
+                  </div>
+                </div>
+              </div>
+            </form>
+          </li>
+          <li>
+            <form class="uk-child-width-1-1 uk-grid-small" uk-grid>
+              <div>
+                <div class="uk-form-group">
+                  <label class="uk-form-label"> Name</label>
+
+                  <div class="uk-position-relative w-100">
+                    <span class="uk-form-icon">
+                      <i class="icon-feather-user"></i>
+                    </span>
+                    <input
+                      *ngIf="user"
+                      class="uk-input"
+                      type="text"
+                      name="name"
+                      [(ngModel)]="user.name"
+                      placeholder="Full name"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div class="uk-form-group">
+                  <label class="uk-form-label"> Email</label>
+
+                  <div class="uk-position-relative w-100">
+                    <span class="uk-form-icon">
+                      <i class="icon-feather-mail"></i>
+                    </span>
+                    <input
+                      *ngIf="user"
+                      class="uk-input"
+                      type="email"
+                      name="email"
+                      [(ngModel)]="user.email"
+                      placeholder="name@example.com"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div class="uk-width-1-2@s">
+                <div class="uk-form-group">
+                  <label class="uk-form-label"> Password</label>
+
+                  <div class="uk-position-relative w-100">
+                    <span class="uk-form-icon">
+                      <i class="icon-feather-lock"></i>
+                    </span>
+                    <input
+                      *ngIf="user"
+                      class="uk-input"
+                      type="password"
+                      name="password"
+                      [(ngModel)]="psd"
+                      placeholder="********"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="uk-width-1-2@s">
+                <div class="uk-form-group">
+                  <label class="uk-form-label"> Confirm password</label>
+
+                  <div class="uk-position-relative w-100">
+                    <span class="uk-form-icon">
+                      <i class="icon-feather-lock"></i>
+                    </span>
+                    <input
+                      class="uk-input"
+                      type="password"
+                      name="password1"
+                      [(ngModel)]="psd1"
+                      placeholder="********"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <div class="mt-4 uk-flex-middle uk-grid-small" uk-grid>
+                  <div class="uk-width-auto@s">
+                    <input
+                      type="submit"
+                      class="btn btn-default"
+                      value="Update"
+                      (click)="updateSettings()"
+                    />
+                  </div>
+                </div>
+              </div>
+            </form>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
