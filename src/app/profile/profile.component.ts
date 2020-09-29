@@ -114,7 +114,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
   async updateSettings() {
     if (this.validate(this.data.user)) {
       const data = await this.rest.post(
-        '${this.apiUrl}/api/accounts/profile',
+        `${this.apiUrl}/api/accounts/profile`,
         {
           name: this.user.name,
           email: this.user.email,

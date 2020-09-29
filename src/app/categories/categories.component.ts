@@ -32,7 +32,7 @@ export class CategoriesComponent implements OnInit {
   async addCategory() {
     try {
       const data = await this.rest.post(
-        '${this.apiUrl}/api/categories',
+        `${this.apiUrl}/api/categories`,
         { category: this.newCategory }
       );
       data['success']
